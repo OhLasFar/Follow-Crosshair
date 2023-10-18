@@ -29,11 +29,11 @@ This configuration is designed for CS2 players to automatically adjust crosshair
 ### Weapon Selection Binds
 
 - **Secondary Weapon**: Press `3` 
-  - Sets mouse1 to normal attack.
+  - Sets mouse1 to normal melee attack.
 - **Primary Weapon**: Press `2`
-  - Sets mouse1 to shooting with the "Activated Color" and recoil enabled.
+  - Sets mouse1 to shooting with the "Activated Color" and Follow Recoil setting enabled.
 - **Melee Weapon**: Press `1`
-  - Sets mouse1 to shooting with the "Deactivated Color" and recoil disabled.
+  - Sets mouse1 to shooting with the "Deactivated Color" and Follow Recoil setting disabled.
 
 ---
 
