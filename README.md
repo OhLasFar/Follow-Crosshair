@@ -1,1 +1,1 @@
-# CS2-FollowCrosshairAndColorsAutoActivation
+# CS2-Crosshair-Enhancement
