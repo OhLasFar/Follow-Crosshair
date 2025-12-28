@@ -1,6 +1,6 @@
-# CS2-Crosshair-Enhancement
+# CS2 Crosshair Follow Guide
 
-This configuration is designed for CS2 players to automatically adjust crosshair colors and Follow Recoil settings based on in-game actions.
+Simple configuration for CS2 that changes crosshair color and the `cl_crosshair_recoil` option based on what you are doing in-game.
 
 ## Credits
 - **u/craygroupious**: [Reddit Post](https://www.reddit.com/r/GlobalOffensive/comments/16wgzkp/comment/k2x048d/)
@@ -8,47 +8,52 @@ This configuration is designed for CS2 players to automatically adjust crosshair
 
 ---
 
-## Features
+## What This Config Does
 
-1. **Crosshair Colors Configuration**
-   - Change crosshair color when the "Follow Crosshair" is activated or deactivated.
-   - Customizable RGB values ranging from 0 to 255.
+- **Follow Recoil toggle**: `cl_crosshair_recoil` turns on while holding `mouse1` and turns off when you release it.
+- **Color feedback**: the crosshair turns bright green while Follow Recoil is active and cyan when it is not.
+- **Weapon binds manage mouse1**: pressing `1/2/3` not only selects the weapon slot but also rebinds `mouse1` so the config knows how to behave for that slot.
 
-2. **Shooting Binds**
-   - Automatically activate or deactivate follow recoil settings when shooting.
+```cfg
+alias ColorActivated "cl_crosshaircolor_r 0; cl_crosshaircolor_b 0; cl_crosshaircolor_g 255; cl_crosshair_recoil true"
+alias ColorDeactivated "cl_crosshaircolor_r 50; cl_crosshaircolor_b 255; cl_crosshaircolor_g 255; cl_crosshair_recoil false"
+```
 
----
+Change the numbers in those lines if you want different colors or recoil behavior.
 
-## Configurations
 
-### Shooting Binds
+## Bind Behavior (matches `autoexec.cfg`)
 
-- When shooting, the Follow Recoil setting is activated and the crosshair color is set to "Activated Color".
-- When not shooting, the Follow Recoil setting is deactivated and the crosshair color is set to "Deactivated Color".
+- `mouse1` is bound to `+shootr`, which runs `+attack`, enables Follow Recoil, and sets the "activated" color. Releasing `mouse1` runs `-shootr`, stops attacking, disables Follow Recoil, and switches to the "deactivated" color.
 
-### Weapon Selection Binds
+```cfg
+alias "+shootr" "+attack; cl_crosshair_recoil true; ColorActivated"
+alias "-shootr" "-attack; cl_crosshair_recoil false; ColorDeactivated"
+bind "mouse1" "+shootr"
+```
 
-- **Secondary Weapon**: Press `3` 
-  - Sets mouse1 to normal melee attack.
-- **Primary Weapon**: Press `2`
-  - Sets mouse1 to shooting with the "Activated Color" and Follow Recoil setting enabled.
-- **Melee Weapon**: Press `1`
-  - Sets mouse1 to shooting with the "Deactivated Color" and Follow Recoil setting disabled.
+- Pressing `2` (primary weapons) executes `slot1; bind mouse1 +shootr`. You keep shooting normally and the Follow Recoil automation stays enabled.
+- Pressing `3` (secondary weapons) executes `slot2; bind mouse1 +attack`. This restores the default shoot bind, so no automatic color/recoil changes happen on pistols.
+- Pressing `1` (melee) executes `slot3; bind mouse1 -shootr`. Left click now only runs the "release" alias, which instantly disables Follow Recoil and applies the deactivated color. This stops accidental knife swings but also means you cannot attack until you switch back to slot 2 or 3.
+
+```cfg
+bind "2" "slot1; bind mouse1 +shootr"
+bind "3" "slot2; bind mouse1 +attack"
+bind "1" "slot3; bind mouse1 -shootr"
+```
+
+Keep the binds in the script consistent—if you change one, make sure the others are updated so that `mouse1` behaves the way you expect.
 
 ---
 
 ## Installation
 
-1. Copy the provided configuration.
-2. Navigate to your CS2 game directory and locate the `C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg` folder.
-3. Create a new file named `autoexec.cfg` (if it doesn't already exist).
-4. Paste the copied configuration into this file. (You may need to adjust it to your settings)
-5. Save and close the file.
-6. In CS2, open the console and type `exec autoexec.cfg` to run the configuration1 or add exec `exec autoexec.cfg` in your launch options.
+1. Copy the content of `autoexec.cfg` from this repo.
+2. Place it in your CS2 config folder, usually `C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg`.
+3. If `autoexec.cfg` already exists, merge the binds carefully so nothing important is overwritten.
+4. Launch CS2 and run `exec autoexec.cfg` in the developer console, or add `+exec autoexec.cfg` to your Steam launch options so it loads automatically.
 
 ---
 
-**Note**: Ensure that the binding for mouse1 remains as provided to guarantee functionality.
-
-For further customization or inquiries, refer to @OhLasFar on Twitter.
+**Need tweaks?** Ping `@OhLasFar` on Twitter for questions or suggestions.
 
